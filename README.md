@@ -1,10 +1,8 @@
 ## Nagios Fuze Notifications
 
-This simply takes Nagios environment variables ([see here](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/macrolist.html)), and builds a quick JSON block to send to a Fuze webhook -   ([see here](https://help.fuze.com/hc/en-us/articles/360036848673))
+This simply takes Nagios environment variables ([see here](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/macrolist.html)), and builds a quick text block to send to a Fuze webhook -   ([see here](https://help.fuze.com/hc/en-us/articles/360036848673))
 
-Fill out the two empty variables at the top of the scripts, and place them in your Nagios libexec directory.
-
-You'll want to add some commands, to be able to call the notify scripts, say in your `commands.cfg`:
+Create two new commands in your `commands.cfg`:
 
 ```
 define command {
@@ -35,7 +33,7 @@ Update your `contactgroup` as well:
 define contactgroup {
   contactgroup_name everyone
   alias Everyone
-  members alice,bob,fuze
+  members nagiosadmin,fuze
 }
 ```
 
