@@ -7,12 +7,12 @@ Create two new commands in your `commands.cfg`:
 ```
 define command {
   command_name notify-host-by-fuze
-  command_line /usr/bin/printf "***** Nagios *****\nNotification Type: $NOTIFICATIONTYPE$\nHost: $HOSTNAME$\nState: $HOSTSTATE$\nAddress: $HOSTADDRESS$\nInfo: $HOSTOUTPUT$\n\nDate/Time: $LONGDATETIME$\n" | curl -H 'Content-Type: text/plain' https://api.fuze.com/chat/v2/webhooks/incoming/token --data-binary @-
+  command_line /usr/bin/printf "%b" "*Host: $HOSTNAME$*\nNotification Type: $NOTIFICATIONTYPE$\n*State: $HOSTSTATE$*\nAddress: $HOSTADDRESS$\n*Info: $HOSTOUTPUT$*\nDate/Time: $LONGDATETIME$\nHost Info URL: $HOSTINFOURL$\n" | curl -H 'Content-Type: text/plain' https://api.fuze.com/chat/v2/webhooks/incoming/token --data-binary @-
 }
 
 define command {
   command_name notify-service-by-fuze
-  command_line /usr/bin/printf "***** Nagios *****\n\nNotification Type: $NOTIFICATIONTYPE$\n\nService: $SERVICEDESC$\nHost: $HOSTALIAS$\nAddress: $HOSTADDRESS$\nState: $SERVICESTATE$\n\nDate/Time: $LONGDATETIME$\n\nAdditional Info:\n\n$SERVICEOUTPUT$\n" | curl -H 'Content-Type: text/plain' https://api.fuze.com/chat/v2/webhooks/incoming/token --data-binary @-
+  command_line /usr/bin/printf "%b" "*Host: $HOSTALIAS$*\nNotification Type: $NOTIFICATIONTYPE$\nService: $SERVICEDESC$\nAddress: $HOSTADDRESS$\n*State: $SERVICESTATE$*\n\nDate/Time: $LONGDATETIME$\nService Info URL: $SERVICEINFOURL$ \nAdditional Info:\n*$SERVICEOUTPUT$*\n" | curl -H 'Content-Type: text/plain' https://api.fuze.com/chat/v2/webhooks/incoming/token --data-binary @-
 }
 ```
 
